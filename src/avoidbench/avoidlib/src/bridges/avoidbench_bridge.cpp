@@ -30,7 +30,7 @@ AvoidbenchBridge::AvoidbenchBridge(const std::string &cfg_path)
   Vector<3> B_r_BCl(0.2, stereo_baseline_ / 2.0, 0.3);
   Matrix<3, 3> R_BCl;
   R_BCl = Eigen::AngleAxisd(0.0 * M_PI, Eigen::Vector3d::UnitX()) * Eigen::AngleAxisd(-pitch_angle_deg_ / 180.0 * M_PI,
-                          Eigen::Vector3d::UnitY()) * Eigen::AngleAxisd(-0.5 * M_PI, Eigen::Vector3d::UnitZ());
+                          Eigen::Vector3d::UnitY()) * Eigen::AngleAxisd(1.0 * M_PI, Eigen::Vector3d::UnitZ());
   left_rgb_cam_->setRelPose(B_r_BCl, R_BCl);
   quad_ptr_->addRGBCamera(left_rgb_cam_);
   
@@ -44,7 +44,7 @@ AvoidbenchBridge::AvoidbenchBridge(const std::string &cfg_path)
     Vector<3> B_r_BCr(0.2, -stereo_baseline_ / 2.0, 0.3);
     Matrix<3, 3> R_BCr; 
     R_BCr = Eigen::AngleAxisd(0.0 * M_PI, Eigen::Vector3d::UnitX()) * Eigen::AngleAxisd(-pitch_angle_deg_ / 180.0 * M_PI,
-                            Eigen::Vector3d::UnitY()) * Eigen::AngleAxisd(-0.5 * M_PI, Eigen::Vector3d::UnitZ());
+                            Eigen::Vector3d::UnitY()) * Eigen::AngleAxisd(1.0 * M_PI, Eigen::Vector3d::UnitZ());
     right_rgb_cam_->setRelPose(B_r_BCr, R_BCr);
     quad_ptr_->addRGBCamera(right_rgb_cam_);
   }
