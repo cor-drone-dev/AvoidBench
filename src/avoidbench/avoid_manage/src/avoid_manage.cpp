@@ -307,16 +307,44 @@ void AvoidManage::MissionCallback(const ros::TimerEvent &event)
       pub_msg.header.frame_id = "world";
       goal_pub_.publish(pub_msg);
       ros::Duration(0.1).sleep();
-      if((ros::Time::now() - mission_start_time).toSec()>60.0)
-      {
-        ROS_WARN("Exceed 1 min cannot start planning, pass current Trial");
-        mission_state = Mission_state::GAZEBOSETTING;
-      }
+      // if((ros::Time::now() - mission_start_time).toSec()>60.0)
+      // {
+      //   ROS_WARN("Exceed 1 min cannot start planning, pass current Trial");
+      //   mission_state = Mission_state::GAZEBOSETTING;
+      // }
+      mission_state = Mission_state::MISSIONPROCESS;
       return;
     }
   }
 
-  if(mission_state == Mission_state::WAITMISSION)
+  // if(mission_state == Mission_state::WAITMISSION)
+  // {
+  //   mission->getTrajectory(received_state_est_);
+  //   if((mission->finished && !save_data_mode) || 
+  //   ((ros::Time::now() - mission_start_time).toSec()>80.0))
+  //   {
+  //     mission_state = Mission_state::GAZEBOSETTING;
+  //     return;
+  //   }
+  // }
+
+  // if(mission_state == Mission_state::MISSIONPROCESS)
+  // {
+  //   mission->getTrajectory(received_state_est_);
+  //   if(collision_happen)
+  //   {
+  //     ROS_INFO("collision happened");
+  //     mission->CollisionCount();
+  //     collision_happen = false;
+  //   }
+  //   mission_state = Mission_state::WAITMISSION;
+  //   if(mission->stop_flag || mission->collision_number >= 3)
+  //     mission_state = Mission_state::GAZEBOSETTING;
+  // }
+
+
+
+  if(mission_state == Mission_state::MISSIONPROCESS)
   {
     mission->getTrajectory(received_state_est_);
     if((mission->finished && !save_data_mode) || 
@@ -325,21 +353,19 @@ void AvoidManage::MissionCallback(const ros::TimerEvent &event)
       mission_state = Mission_state::GAZEBOSETTING;
       return;
     }
-  }
 
-  if(mission_state == Mission_state::MISSIONPROCESS)
-  {
-    mission->getTrajectory(received_state_est_);
     if(collision_happen)
     {
       ROS_INFO("collision happened");
       mission->CollisionCount();
       collision_happen = false;
     }
-    mission_state = Mission_state::WAITMISSION;
-    if(mission->stop_flag || mission->collision_number >= 3)
+
+    if(mission->stop_flag || mission->collision_number >= 3) {
       mission_state = Mission_state::GAZEBOSETTING;
+    }
   }
+
 
   if(mission_state == Mission_state::GAZEBOSETTING)
   {
