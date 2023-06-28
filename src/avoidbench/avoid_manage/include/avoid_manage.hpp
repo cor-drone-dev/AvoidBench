@@ -134,7 +134,7 @@ class AvoidManage {
 
   // auxiliary variables
   float main_loop_freq_{30.0};
-  float task_loop_freq_{50.0};
+  float task_loop_freq_{10.0};
 
   double start_time;
   avoidlib::mission_parameter MissionParam;
