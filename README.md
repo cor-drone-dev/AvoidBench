@@ -1,3 +1,6 @@
+# Disclaimer
+This branch contains the altered code of AvoidBench to use AvoidBench in combination with the PX4 SITL simulation. This branch cannot be used for a standalone build of AvoidBench. See [bep_px4_avoidbench](https://github.com/cor-drone-dev/bep_px4_avoidbench) for more information on how to set up the PX4 SITL + AvoidBench environment.
+
 # Avoidbench
 AvoidBench: A high-fidelity vision-based obstacle avoidance benchmarking suite for multi-rotor.
 
